@@ -6,4 +6,7 @@ echo "Stopping existing worker..."
 pkill -f main.py || true
 
 echo "Starting worker..."
-nohup python main.py > output.log 2>&1 &
+
+source .venv/bin/activate
+
+nohup python3 main.py > output.log 2>&1 &

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Updating system..."
+sudo apt update
+sudo apt install python3-pip python3-venv -y
