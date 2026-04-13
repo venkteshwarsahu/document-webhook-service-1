@@ -1,0 +1,27 @@
+# file: /etc/systemd/system/qrcode_response.service
+#
+# Run:
+#    sudo systemctl daemon-reload
+#    sudo systemctl status qrcode_response.service
+#
+# For logs:
+#    sudo journalctl -u qrcode_response.service -f
+#
+
+
+[Unit]
+Description=QRCODE Webhook Handler Service
+After=multi-user.target
+
+[Service]
+User=ubuntu
+Type=simple
+
+WorkingDirectory=/home/ubuntu/inno-qrcode-webhook-handler
+ExecStart=/home/ubuntu/anaconda3/bin/python3.10  /home/ubuntu/inno-qrcode-webhook-handler/main.py
+
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target

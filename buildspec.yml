@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+  pre_build:
+    commands:
+      - echo Installing dependencies
+      - pip install -r requirements.txt -t .
+  build:
+    commands:
+      - echo Build phase completed
+
+artifacts:
+  files:
+    - '**/*'

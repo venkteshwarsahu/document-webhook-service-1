@@ -1,0 +1,54 @@
+# WEBHOOK PROD NEW
+# OAUTH2_URL: 'https://spineapi.sbicardservice.com/v1/oauth/token?grant_type=client_credentials'
+# CLIENT_SECRET: bkUtPmaHG8WnTzuM
+# CLIENT_ID: NP7eAoxF7cbnDHuoclkjGei1ZS22AFip
+# WEBHOOK_URL:   https://spineapi.sbicardservice.com/v1/document-masking/masking
+# SIGNING_KEY: F6B560D6558CC57CCC615885C881E82E0611A1C348772A61803B5F475AA1D88B
+
+# UAT
+# OAUTH2_URL: 'https://spine.sbicardservice.com/v1/oauth/token?grant_type=client_credentials'
+# CLIENT_SECRET: 9ZqKq5wpR5MOez9X
+# CLIENT_ID: GlpxWJOd2DLmPy7TpXVmsaCXC0ccSphc
+# WEBHOOK_URL:  https://spine.sbicardservice.com/v1/document-masking/masking
+# SIGNING_KEY: 2A32D9CCF54469D3FA46E94F3899009D7DB9A72E6CD38741C1228DA0EB565AA8
+
+OAUTH2_URL: ""
+CLIENT_SECRET: 9ZqKq5wpR5MOe
+CLIENT_ID: GlpxWJOd2DL
+WEBHOOK_URL: h
+SIGNING_KEY: 2A32D9CC
+
+SQS:
+  PROCESSING: https://sqs.ap-south-1.amazonaws.com/897570523132/document-processing-queue-dev
+  OUTPUT: https://sqs.ap-south-1.amazonaws.com/897570523132/document-processing-output-queue-dev.fifo
+  # OUTPUT: https://sqs.ap-south-1.amazonaws.com/897570523132/qrprocessing-output-queue-prod.fifo
+  # DLQ: https://sqs.ap-south-1.amazonaws.com/897570523132/qrprocessing-output-dlq-prod.fifo
+  DLQ: https://sqs.ap-south-1.amazonaws.com/897570523132/qrprocessing-output-dlq-dev.fifo
+MAIL:
+  SUBJECT: QR PROCESSING COMPLETED FOR DATE $
+  BODY: "Hello,
+    .
+    Please check the attached MIS for the batch $"
+
+  MAIL_IDS:
+    [anurag.vishwakarma@innodeed.com, "abhishek.vishwakarma@innodeed.com"]
+
+  SOURCE_EMAIL: anurag.vishwakarma@innodeed.com
+
+RETRIES: 3
+ERRORS_TO_SKIP:
+  [
+    "{'code': '503.101', 'message': 'Service temporarily unavailable'}",
+    "{'code': '500.100', 'message': 'Internal server error'}",
+    "{'code': '400.5101.03', 'message': 'SR or Interacton is in closed state.'}",
+    "{'faultstring': 'Body buffer overflow', 'detail': {'errorcode': 'protocol.http.TooBigBody'}}",
+    "{'code': '500.0000.WS_ERR_UNS', 'message': 'Unknown error'}",
+  ]
+DATABASE:
+  METADATA:
+    DB: inno_document_dev
+    DB_GSI: inno_document_dev_gsi1
+
+  BILLING:
+    DB: inno_document_dev_registry
+    DB_GSI: inno_document_dev_registry_gsi1
