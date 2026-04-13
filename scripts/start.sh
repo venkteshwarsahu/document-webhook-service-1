@@ -1,12 +1,15 @@
 #!/bin/bash
+set -e
 
-cd /home/ubuntu/document-webhook-service-1
+APP_DIR="/home/ubuntu/document-webhook-service-1"
 
-echo "Stopping existing worker..."
+cd $APP_DIR
+
+echo "Stopping old process..."
 pkill -f main.py || true
 
-echo "Starting worker..."
-
+echo "Activating venv..."
 source .venv/bin/activate
 
+echo "Starting app..."
 nohup python3 main.py > output.log 2>&1 &
